@@ -12,11 +12,10 @@
 <body class="dash-body">
     <header class="header">
         <div class="container header-inner">
-            <a href="../index.html" class="logo"><span>Focus Study</span></a>
+            <a href="inicialusuario.html" class="logo"><span>Focus Study</span></a>
             <nav class="nav">
                 <a href="inicialusuario.html" class="nav-link active">Painel</a>
                 <a href="horarios.html" class="nav-link">Horários</a>
-                <a href="grade-habitos.html" class="nav-link">Hábitos</a>
                 <a href="estatisticas-new.html" class="nav-link">Estatísticas</a>
             </nav>
             <div class="header-actions">
@@ -86,9 +85,6 @@
             <div class="dash-card tasks-card">
                 <div class="tasks-header">
                     <h3>Minhas Missões</h3>
-                    <button class="btn-add-task js-add-task" title="Adicionar Missão">
-                        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-                    </button>
                 </div>
                 <div class="tasks-content">
                     <ul class="task-list js-task-list"></ul>
@@ -250,21 +246,7 @@
         <div class="fs-pomo-dots" id="fs-dots"></div>
     </div>
 
-    <!-- Modal: Adicionar Missão -->
-    <div class="fs-modal-overlay" id="modal-add-task">
-        <div class="fs-modal">
-            <div class="fs-modal-icon cyan">
-                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-            </div>
-            <h3>Nova Missão</h3>
-            <p class="fs-modal-sub">O que você quer conquistar hoje?</p>
-            <input type="text" id="task-input" class="fs-modal-input" placeholder="Ex: Estudar 2 capítulos de JS" maxlength="80" />
-            <div class="fs-modal-actions">
-                <button class="fs-btn-cancel" id="cancel-add-task">Cancelar</button>
-                <button class="fs-btn-confirm" id="confirm-add-task">Adicionar</button>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Modal: Confirmar exclusão -->
     <div class="fs-modal-overlay" id="modal-delete-task">

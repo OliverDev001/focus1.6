@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => { //a corrigir junto com o php de tarefas
+document.addEventListener('DOMContentLoaded', () => { //corrigido
     // ============================================================
     // 1. GERENCIAMENTO DE ESTADO E SESSÃO 
     // ============================================================
@@ -6,16 +6,51 @@ document.addEventListener('DOMContentLoaded', () => { //a corrigir junto com o p
         try {
             const response = await fetch('php/inicialusuario.php');
             const data = await response.json();
-            if (data.logado) {
-                document.getElementById('welcome-name').textContent = data.nome;
-                if (data.foto) {
-                    document.getElementById('nav-avatar').src = data.foto;
-                    profile.avatar = data.foto; profile.name = data.nome;
-                    localStorage.setItem('fs_profile', JSON.stringify(profile));
-                }
-                carregarMissoes();
-            } else { window.location.href = 'login.html'; }
-        } catch (e) { console.error("Erro ao carregar dados do banco:", e); }
+
+            if (data && data.logado) {
+                const profileLocal = JSON.parse(localStorage.getItem('fs_profile') || '{}');
+
+                profileLocal.name = data.nome;    
+                profileLocal.avatar = data.foto;  
+                profileLocal.xp = data.xp;
+                profileLocal.streak = data.streak;
+
+                localStorage.setItem('fs_profile', JSON.stringify(profileLocal));
+                renderizarDadosUsuario(profileLocal);
+            } else {
+                window.location.href = 'login.html'; 
+            }
+        } catch (e) {
+            console.error("Erro ao carregar dados do banco:", e);
+        }
+    }
+
+    function renderizarDadosUsuario(p) {
+        if (!p) return;
+        const welcomeEl = document.getElementById('welcome-name');
+        if (welcomeEl) {
+            welcomeEl.textContent = p.name || 'Usuário';
+        }
+
+        const avatares = document.querySelectorAll('.user-avatar-img, #nav-avatar');
+        avatares.forEach(img => {
+            if (p.avatar) {
+                img.src = p.avatar.includes('uploads/') ? p.avatar : 'php/uploads/' + p.avatar;
+            } else {
+                img.src = 'php/uploads/poppy.png';
+            }
+        });
+
+        // 3. Caso você tenha o nome em outros lugares com o ID antigo
+        const nameEl = document.getElementById('user_nome');
+        if (nameEl) nameEl.textContent = p.name || 'Estudante';
+
+        // 4. XP e Streak
+        const xpEl = document.getElementById('user-xp');
+        if (xpEl) xpEl.textContent = (p.xp || 0) + ' XP';
+
+        const streakEl = document.getElementById('user-streak');
+        if (streakEl) streakEl.textContent = (p.streak || 0) + ' dias';
     }
 
     // ══════════════════════════════════════════
@@ -284,7 +319,6 @@ document.addEventListener('DOMContentLoaded', () => { //a corrigir junto com o p
     //  MISSÕES
     // ══════════════════════════════════════════
     const taskList = document.querySelector('.js-task-list');
-    const addTaskBtn = document.querySelector('.js-add-task');
     const tasksEmpty = document.getElementById('tasks-empty');
     const tasksDone = document.getElementById('tasks-done-count');
     const tasksFill = document.getElementById('tasks-progress-fill');
@@ -401,58 +435,6 @@ document.addEventListener('DOMContentLoaded', () => { //a corrigir junto com o p
                 carregarMissoes();
             }
         } catch (e) { console.error("Erro ao deletar"); }
-    });
-
-    // ADICIONAR TAREFA
-    let isAddingTask = false;
-    const btnConfirm = document.getElementById('confirm-add-task');
-    const inputTask = document.getElementById('task-input');
-
-    if (btnConfirm) {
-        btnConfirm.onclick = async (e) => {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-
-            if (isAddingTask) return;
-
-            const titulo = inputTask.value.trim();
-            if (!titulo) {
-                inputTask.focus();
-                return;
-            }
-
-            isAddingTask = true;
-            btnConfirm.disabled = true;
-
-            const fd = new FormData();
-            fd.append('acao', 'inserir');
-            fd.append('titulo', titulo);
-
-            try {
-                const res = await fetch('php/tarefas.php', { method: 'POST', body: fd });
-                const dados = await res.json();
-
-                if (dados.sucesso) {
-                    inputTask.value = '';
-                    document.getElementById('modal-add-task')?.classList.remove('open');
-                    taskList.innerHTML = '';
-                    await carregarMissoes();
-                }
-            } catch (err) {
-                console.error("Erro ao inserir:", err);
-            } finally {
-                isAddingTask = false;
-                btnConfirm.disabled = false;
-            }
-        };
-    }
-
-    // 6. TRATAMENTO DO ENTER
-    inputTask?.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            btnConfirm?.click();
-        }
     });
 
     // Inicialização

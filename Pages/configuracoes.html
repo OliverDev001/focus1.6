@@ -11,11 +11,10 @@
 <body class="dash-body">
   <header class="header">
     <div class="container header-inner">
-      <a href="../index.html" class="logo"><span>Focus Study</span></a>
+      <a href="inicialusuario.html" class="logo"><span>Focus Study</span></a>
       <nav class="nav">
         <a href="inicialusuario.html" class="nav-link">Painel</a>
         <a href="horarios.html" class="nav-link">Horários</a>
-        <a href="grade-habitos.html" class="nav-link">Hábitos</a>
         <a href="estatisticas-new.html" class="nav-link">Estatísticas</a>
       </nav>
       <div class="header-actions">
@@ -39,8 +38,6 @@
 
       <!-- Sidebar de seções -->
       <nav class="config-sidebar">
-        <button class="cfg-tab active" data-tab="pomodoro">⏱ Pomodoro</button>
-        <button class="cfg-tab" data-tab="notifications">🔔 Notificações</button>
         <button class="cfg-tab" data-tab="appearance">🎨 Aparência</button>
         <button class="cfg-tab" data-tab="sounds">🎵 Sons</button>
         <button class="cfg-tab" data-tab="data">💾 Dados</button>
@@ -49,122 +46,6 @@
 
       <!-- Painéis -->
       <div class="config-panels">
-
-        <!-- Pomodoro -->
-        <div class="cfg-panel active" id="tab-pomodoro">
-          <div class="dash-card cfg-card">
-            <h3 class="cfg-section-title">Configurações do Pomodoro</h3>
-            <div class="cfg-rows">
-              <div class="cfg-row">
-                <div class="cfg-row-info">
-                  <span class="cfg-row-label">Duração do Foco</span>
-                  <span class="cfg-row-desc">Tempo de cada sessão de foco</span>
-                </div>
-                <div class="cfg-row-control">
-                  <input type="number" id="cfg-focus" min="1" max="120" value="25" class="cfg-number-input" />
-                  <span class="cfg-unit">min</span>
-                </div>
-              </div>
-              <div class="cfg-row">
-                <div class="cfg-row-info">
-                  <span class="cfg-row-label">Pausa Curta</span>
-                  <span class="cfg-row-desc">Intervalo entre sessões de foco</span>
-                </div>
-                <div class="cfg-row-control">
-                  <input type="number" id="cfg-short-break" min="1" max="60" value="5" class="cfg-number-input" />
-                  <span class="cfg-unit">min</span>
-                </div>
-              </div>
-              <div class="cfg-row">
-                <div class="cfg-row-info">
-                  <span class="cfg-row-label">Pausa Longa</span>
-                  <span class="cfg-row-desc">Pausa após completar 4 sessões</span>
-                </div>
-                <div class="cfg-row-control">
-                  <input type="number" id="cfg-long-break" min="1" max="120" value="15" class="cfg-number-input" />
-                  <span class="cfg-unit">min</span>
-                </div>
-              </div>
-              <div class="cfg-row">
-                <div class="cfg-row-info">
-                  <span class="cfg-row-label">Sessões até Pausa Longa</span>
-                  <span class="cfg-row-desc">Número de pomodoros até descanso longo</span>
-                </div>
-                <div class="cfg-row-control">
-                  <input type="number" id="cfg-sessions-long" min="2" max="10" value="4" class="cfg-number-input" />
-                </div>
-              </div>
-              <div class="cfg-row">
-                <div class="cfg-row-info">
-                  <span class="cfg-row-label">Auto-iniciar Pausas</span>
-                  <span class="cfg-row-desc">Iniciar automaticamente após o foco terminar</span>
-                </div>
-                <label class="toggle-switch">
-                  <input type="checkbox" id="cfg-auto-break" />
-                  <span class="toggle-slider"></span>
-                </label>
-              </div>
-              <div class="cfg-row">
-                <div class="cfg-row-info">
-                  <span class="cfg-row-label">Auto-iniciar Foco</span>
-                  <span class="cfg-row-desc">Iniciar automaticamente após a pausa</span>
-                </div>
-                <label class="toggle-switch">
-                  <input type="checkbox" id="cfg-auto-focus" />
-                  <span class="toggle-slider"></span>
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Notificações -->
-        <div class="cfg-panel" id="tab-notifications">
-          <div class="dash-card cfg-card">
-            <h3 class="cfg-section-title">Notificações</h3>
-            <div class="cfg-rows">
-              <div class="cfg-row">
-                <div class="cfg-row-info">
-                  <span class="cfg-row-label">Notificações do Navegador</span>
-                  <span class="cfg-row-desc">Alertas ao fim de cada sessão</span>
-                </div>
-                <label class="toggle-switch">
-                  <input type="checkbox" id="cfg-notif-browser" checked />
-                  <span class="toggle-slider"></span>
-                </label>
-              </div>
-              <div class="cfg-row">
-                <div class="cfg-row-info">
-                  <span class="cfg-row-label">Som de Alerta</span>
-                  <span class="cfg-row-desc">Toque ao final do timer</span>
-                </div>
-                <label class="toggle-switch">
-                  <input type="checkbox" id="cfg-notif-sound" checked />
-                  <span class="toggle-slider"></span>
-                </label>
-              </div>
-              <div class="cfg-row">
-                <div class="cfg-row-info">
-                  <span class="cfg-row-label">Conquistas</span>
-                  <span class="cfg-row-desc">Notificar ao desbloquear conquistas</span>
-                </div>
-                <label class="toggle-switch">
-                  <input type="checkbox" id="cfg-notif-achievements" checked />
-                  <span class="toggle-slider"></span>
-                </label>
-              </div>
-              <div class="cfg-row">
-                <div class="cfg-row-info">
-                  <span class="cfg-row-label">Lembrete Diário</span>
-                  <span class="cfg-row-desc">Hora para lembrete de estudar</span>
-                </div>
-                <div class="cfg-row-control">
-                  <input type="time" id="cfg-reminder-time" value="08:00" class="cfg-time-input" />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Aparência -->
         <div class="cfg-panel" id="tab-appearance">

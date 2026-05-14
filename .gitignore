@@ -1,0 +1,9 @@
+# Ignorar arquivos de configuração sensíveis
+.env
+
+# Ignorar pastas de dependências (se usar Composer)
+vendor/
+
+# Ignorar logs e arquivos temporários
+*.log
+.DS_Store
