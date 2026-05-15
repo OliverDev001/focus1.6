@@ -440,6 +440,7 @@
   <div class="chat-button" onclick="toggleChat()" title="Falar com a Focus Assistant">
     <img src="images/poppy.png" alt="Poppy — Focus Assistant" />
   </div>
+
   <div class="chat-box" id="chatBox">
     <div class="chat-header">
       <img src="images/poppy.png" alt="Poppy" class="chat-header-avatar" />
@@ -447,13 +448,20 @@
         <div class="chat-header-name">🐰 Focus Assistant</div>
         <div class="chat-header-status">Online agora</div>
       </div>
+      <button onclick="toggleChat()"
+        style="background:none; border:none; color:white; cursor:pointer; font-size:20px;">&times;</button>
     </div>
+
     <div class="chat-messages" id="messages">
-      <p class="msg-assistant">Precisa de ajuda com o suporte? Pode perguntar! 🎯</p>
+      <div class="msg bot">
+        Precisa de ajuda com a sua produtividade? Pode perguntar! 🎯
+        <div class="msg-time" id="initTime">00:00</div>
+      </div>
     </div>
+
     <div class="chat-input">
-      <input id="input" placeholder="Digite sua pergunta..." autocomplete="off" />
-      <button onclick="sendMessage()" aria-label="Enviar">
+      <textarea id="input" placeholder="Digite sua pergunta..." autocomplete="off" rows="1"></textarea>
+      <button id="sendBtn" onclick="sendMessage()" aria-label="Enviar">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
@@ -489,9 +497,9 @@
 
   <!-- Scripts -->
   <script src="js/script.js"></script>
-  <script src="js/script_ia.js"></script>
   <script src="js/contato_js.js"></script>
   <script src="js/avatar.js"></script>
+  <script src="js/chat.js"></script>
 </body>
 
 </html>

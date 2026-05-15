@@ -1,10 +1,20 @@
-//corrigir IA por inteiro
-const chatBody  = document.getElementById('chatBody');
-const userInput = document.getElementById('userInput');
+// Seletores Corrigidos
+const chatBody  = document.getElementById('messages');
+const userInput = document.getElementById('input');
 const sendBtn   = document.getElementById('sendBtn');
+const chatBox   = document.getElementById('chatBox');
 
-// Horário da mensagem inicial
-document.getElementById('initTime').textContent = getTime();
+// Inicializa o horário da primeira mensagem
+if(document.getElementById('initTime')) {
+    document.getElementById('initTime').textContent = getTime();
+}
+
+function toggleChat() {
+    chatBox.classList.toggle('active');
+    if (chatBox.classList.contains('active')) {
+        userInput.focus();
+    }
+}
 
 function getTime() {
     return new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
@@ -12,6 +22,7 @@ function getTime() {
 
 function addMsg(text, who) {
     const div = document.createElement('div');
+    // 'who' deve ser 'user' ou 'bot' para bater com seu CSS
     div.className = 'msg ' + who;
     div.innerHTML = escapeHtml(text) + `<div class="msg-time">${getTime()}</div>`;
     chatBody.appendChild(div);
@@ -36,25 +47,20 @@ function scrollBottom() {
     chatBody.scrollTop = chatBody.scrollHeight;
 }
 
-// Escapa HTML para evitar XSS na exibição
 function escapeHtml(text) {
-    return text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+    return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 async function sendMessage() {
     const text = userInput.value.trim();
     if (!text || sendBtn.disabled) return;
 
-    // Mostra mensagem do usuário
+    // 1. Mostra mensagem do usuário
     addMsg(text, 'user');
     userInput.value = '';
     userInput.style.height = 'auto';
 
-    // Bloqueia enquanto aguarda
+    // 2. Bloqueia interface
     sendBtn.disabled = true;
     showTyping();
 
@@ -62,13 +68,12 @@ async function sendMessage() {
         const formData = new FormData();
         formData.append('message', text);
 
-        // POST para o próprio index.php (mesma página)
-        const res = await fetch('php/index.php', {
+        const res = await fetch('php/index.php', { 
             method: 'POST',
             body: formData
         });
 
-        if (!res.ok) throw new Error('HTTP ' + res.status);
+        if (!res.ok) throw new Error('Erro na resposta do servidor');
 
         const reply = await res.text();
         removeTyping();
@@ -84,7 +89,7 @@ async function sendMessage() {
     userInput.focus();
 }
 
-// Enviar com Enter (Shift+Enter = nova linha)
+// Event Listeners
 userInput.addEventListener('keydown', e => {
     if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
@@ -92,10 +97,6 @@ userInput.addEventListener('keydown', e => {
     }
 });
 
-// Botão enviar
-sendBtn.addEventListener('click', sendMessage);
-
-// Auto-resize do textarea
 userInput.addEventListener('input', () => {
     userInput.style.height = 'auto';
     userInput.style.height = Math.min(userInput.scrollHeight, 120) + 'px';

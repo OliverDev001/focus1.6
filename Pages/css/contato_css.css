@@ -834,3 +834,8 @@ tbody td {
     display: none;
   }
 }
+/* Adicione isso ao final do seu contato_css.css */
+#chatBox.active {
+    display: flex !important;
+}
+

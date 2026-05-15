@@ -523,3 +523,10 @@ function showToast(msg, tipo = '') {
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => { t.className = ''; }, 3200);
 }
+
+//LogOut
+async function logout() {
+    const res = await fetch('logout.php');
+    // Após limpar a sessão no servidor, limpamos no cliente e redirecionamos
+    window.location.href = '../login.html';
+}
