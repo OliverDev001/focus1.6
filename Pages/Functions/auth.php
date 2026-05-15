@@ -17,7 +17,7 @@ function proteger($perfilNecessario = null)
     // Se a página exigir nível admin, verifica a role setada no login admin
     if ($perfilNecessario === 'admin') {
         if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
-            header("Location: ../Dashboard/Dashboard.php");
+            header("Location: ../adm/painelAdm.html");
             exit;
         }
     }

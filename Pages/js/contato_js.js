@@ -96,7 +96,7 @@ document.getElementById('formLoginAdmin')?.addEventListener('submit', async func
         const data = await res.json();
 
         if (data.sucesso) {
-            window.location.href = 'adm/painelAdm.php';
+            window.location.href = 'adm/painelAdm.html';
         } else {
             erroDiv.textContent = data.mensagem;
             erroDiv.style.display = 'block';
